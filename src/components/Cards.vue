@@ -1,6 +1,11 @@
 <template>
   <div class="cards">
-    <Card v-for="starter in starters" @click="fetchEvolutions(starter)">
+    <Card
+        v-for="starter in starters"
+        @click="fetchEvolutions(starter)"
+        :class="{opace: selectedId && selectedId !== starter.id}"
+        class="card"
+    >
 
       <template v-slot:title>
         {{starter.name}}
@@ -54,11 +59,13 @@ export default {
   data(){
     return {
       starters: [],
-      evolutions: []
+      evolutions: [],
+      selectedId: null
     }
   },
   methods: {
     async fetchEvolutions(pokemon){
+      this.selectedId = pokemon.id
       this.evolutions = await this.fetchData([pokemon.id+1, pokemon.id+2])
     },
    async fetchData(ids){
@@ -82,6 +89,12 @@ export default {
 <style scoped>
 .cards{
   display: flex;
+}
+.card:hover{
+  opacity: 1.0;
+}
+.opace{
+  opacity: 0.5;
 }
 img{
   width: 100%;

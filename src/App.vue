@@ -1,15 +1,15 @@
 <template>
 
-  <Card/>
+  <Cards/>
 </template>
 
 <script>
-import Card from "./components/Cards";
+import Cards from "./components/Cards";
 
 export default {
   name: 'App',
   components: {
-    Card
+    Cards
   }
 }
 </script>

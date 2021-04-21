@@ -1,9 +1,18 @@
 <template>
-  <div class="card">
-    <div class="title">Title</div>
-    <div class="content">content</div>
-    <div class="description">description</div>
+  <div class="cards">
+    <div class="card" v-for="starter in starters">
+      <div class="title">{{starter.name}}</div>
+      <div class="content">
+        <img :src="starter.sprites" alt="{{starter.name}}">
+      </div>
+      <div class="description">
+        <div v-for="elem in starter.type">
+          {{elem}}
+        </div>
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -13,19 +22,18 @@ export default {
   name: "Card",
   data(){
     return {
-      pokemon: null
+      starters: []
     }
   },
   methods: {
    async fetchData(){
      const responses = await Promise.all(ids.map(id =>window.fetch(`${baseUrl}/pokemon/${id}`)))
      const data = await Promise.all(responses.map(res => res.json()))
-     const pokemon = data.map(datum => ({
+     this.starters = data.map(datum => ({
          name: datum.name,
          sprites: datum.sprites.other['official-artwork'].front_default,
-         type: datum.types.map(type => ({name: type.type.name}))
+         type: datum.types.map(type =>  type.type.name)
      }))
-     console.log(pokemon)
    }
   },
   created() {
@@ -36,6 +44,9 @@ export default {
 </script>
 
 <style scoped>
+.cards{
+  display: flex;
+}
 .card{
   border: 1px solid silver;
   border-radius: 8px;
@@ -44,6 +55,9 @@ export default {
   cursor: pointer;
   box-shadow: 0px 1px 3px darkgray;
   transition: 0.2s;
+}
+img{
+  width: 100%;
 }
 .title, .content, .description{
   padding: 16px;

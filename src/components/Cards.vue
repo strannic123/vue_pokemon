@@ -1,60 +1,28 @@
 <template>
-  <div class="cards">
-    <Card
-        v-for="starter in starters"
-        @click="fetchEvolutions(starter)"
-        :class="{opace: selectedId && selectedId !== starter.id}"
-        class="card"
-    >
 
-      <template v-slot:title>
-        {{starter.name}}
-      </template>
+  <PokemonCards
+      :pokemons="starters"
+      @clickPokemon="fetchEvolutions"
+      :selectedId="selectedId"
+  />
 
-      <template v-slot:content>
-        <img :src="starter.sprites" alt="{{starter.name}}">
-      </template>
-
-      <template v-slot:description>
-        <div v-for="elem in starter.type">
-          {{elem}}
-        </div>
-      </template>
-
-    </Card>
-  </div>
-
-  <div class="cards">
-    <Card v-for="evolut in evolutions">
-
-      <template v-slot:title>
-        {{evolut.name}}
-      </template>
-
-      <template v-slot:content>
-        <img :src="evolut.sprites" alt="{{evolut.name}}">
-      </template>
-
-      <template v-slot:description>
-        <div v-for="elem in evolut.type">
-          {{elem}}
-        </div>
-      </template>
-
-    </Card>
-  </div>
+  <PokemonCards
+      :pokemons="evolutions"
+  />
 
 </template>
 
 <script>
 import Card from './Card'
+import PokemonCards from "./PokemonCards";
 
 const baseUrl = 'https://pokeapi.co/api/v2'
 const STARTER_IDS = [1, 4, 7]
 export default {
   name: "Cards",
   components: {
-    Card
+    Card,
+    PokemonCards
   },
   data(){
     return {
@@ -87,17 +55,6 @@ export default {
 </script>
 
 <style scoped>
-.cards{
-  display: flex;
-}
-.card:hover{
-  opacity: 1.0;
-}
-.opace{
-  opacity: 0.5;
-}
-img{
-  width: 100%;
-}
+
 
 </style>

@@ -26,7 +26,7 @@ export default {
   border: 1px solid silver;
   border-radius: 8px;
   max-width: 200px;
-  margin: 0 5px;
+  margin: 10px 5px;
   cursor: pointer;
   box-shadow: 0px 1px 3px darkgray;
   transition: 0.2s;

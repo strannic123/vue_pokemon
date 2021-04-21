@@ -1,6 +1,5 @@
 <template>
   <div class="card">
-    <button @click="fetchData">Fetch</button>
     <div class="title">Title</div>
     <div class="content">content</div>
     <div class="description">description</div>
@@ -8,10 +7,30 @@
 </template>
 
 <script>
-
+const baseUrl = 'https://pokeapi.co/api/v2'
+const ids = [1, 4, 7]
 export default {
   name: "Card",
-
+  data(){
+    return {
+      pokemon: null
+    }
+  },
+  methods: {
+   async fetchData(){
+     const responses = await Promise.all(ids.map(id =>window.fetch(`${baseUrl}/pokemon/${id}`)))
+     const data = await Promise.all(responses.map(res => res.json()))
+     const pokemon = data.map(datum => ({
+         name: datum.name,
+         sprites: datum.sprites.other['official-artwork'].front_default,
+         type: datum.types.map(type => ({name: type.type.name}))
+     }))
+     console.log(pokemon)
+   }
+  },
+  created() {
+    this.fetchData()
+  }
 
 }
 </script>

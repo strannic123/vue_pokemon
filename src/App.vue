@@ -15,5 +15,8 @@ export default {
 </script>
 
 <style>
+body{
+  background: ivory;
+}
 
 </style>

@@ -1,5 +1,10 @@
 # vue_pokemon
 
+## Pokemon API on Vue (pokeapi.co)
+##Показана эволюция покемонов. 
+
+## ![Imgur](https://i.imgur.com/cw4wEwH.gif)
+
 ## Project setup
 ```
 npm install
